@@ -22,6 +22,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -152,8 +154,15 @@ public class Controller implements Initializable {
                 @Override
                 public void updateItem(String item, boolean empty) {
 
-                    FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
-                    FontAwesomeIconView editIcon = new FontAwesomeIconView(FontAwesomeIcon.PENCIL_SQUARE);
+                    Button deleteIcon = new Button();
+                    Image deleteImage = new Image(getClass().getResourceAsStream("/assets/icons8-trash-40.png"));
+                    ImageView delete = new ImageView(deleteImage);
+                    deleteIcon.setGraphic(delete);
+
+                    Button editIcon = new Button();
+                    Image editImage = new Image(getClass().getResourceAsStream("/assets/icons8-edit-40.png"));
+                    ImageView edit = new ImageView(editImage);
+                    editIcon.setGraphic(edit);
 
                     super.updateItem(item, empty);
 
@@ -164,15 +173,20 @@ public class Controller implements Initializable {
 
 
                         deleteIcon.setStyle(
-                                " -fx-cursor: hand ;"
-                                        + "-glyph-size:28px;"
-                                        + "-fx-fill:#ff1744;"
+                                "-fx-cursor: hand;"
+                                        + "-fx-font-family: 'FontAwesome';"
+                                        + "-fx-font-size: 28px;"
+                                        + "-fx-background-color: 'transparent';"
+                                        + "-fx-fill: #ff1744;"
+
                         );
 
                         editIcon.setStyle(
-                                " -fx-cursor: hand ;"
-                                        + "-glyph-size:28px;"
-                                        + "-fx-fill:#00E676;"
+                                "-fx-cursor: hand;"
+                                        + "-fx-font-family: 'FontAwesome';"
+                                        + "-fx-font-size: 28px;"
+                                        + "-fx-background-color: 'transparent';"
+                                        + "-fx-fill: #00E676;"
                         );
 
                         deleteIcon.setOnMouseClicked((event) -> {

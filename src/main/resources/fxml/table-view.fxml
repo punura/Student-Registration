@@ -130,8 +130,7 @@
             <TableColumn fx:id="dateColumn" prefWidth="144.0" text="Birth Date" />
             <TableColumn fx:id="subjectColumn" prefWidth="118.0" text="Subjects" />
             <TableColumn fx:id="phoneColumn" prefWidth="155.0" text="Phone Number" />
-            <TableColumn fx:id="selectColumn" prefWidth="87.0" text="Select" />
-            <TableColumn fx:id="editColumn" prefWidth="131.0" text="Edit" />
+            <TableColumn fx:id="editColumn" prefWidth="219.0" text="Edit" />
         </columns>
       </TableView>
    </children>
