@@ -16,6 +16,7 @@ public class Main extends Application {
         try {
             Parent root = (Parent) FXMLLoader.load(this.getClass().getResource("/fxml/table-view.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/style_sheets/style.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("Student Registration");
             primaryStage.show();

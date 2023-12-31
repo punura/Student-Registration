@@ -62,7 +62,9 @@ public class AddViewController {
             alert.showAndWait();
         } else {
             getQuery();
-            insert();
+           insert();
+
+
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
@@ -80,15 +82,7 @@ public class AddViewController {
 
     }
 
-    private void getQuery() {
-        if (update == false){
-            query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
-        }else{
-            query = "UPDATE student_details SET" + "student_name=?," + "birth_date=?," + "subjects=?," + "phone_number=? WHERE student_id=?";
-        }
-    }
-
-    private void insert() {
+    private void insertNew() {
         try {
             pst = connectDB.prepareStatement(query);
             pst.setString(1, txt_id.getText());
@@ -96,6 +90,36 @@ public class AddViewController {
             pst.setString(3, String.valueOf(birth_date.getValue()));
             pst.setString(4, txt_subject.getText());
             pst.setString(5, phone_number.getText());
+            pst.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void getQuery() {
+        if (!update){
+            query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
+        }else{
+            query = "UPDATE student_details SET " +
+                    "student_name=?, " +
+                    "birth_date=?, " +
+                    "subjects=?, " +
+                    "phone_number=? " +
+                    "WHERE student_id=?";
+        }
+    }
+
+    private void insert() {
+        try {
+            pst = connectDB.prepareStatement(query);
+            pst.setString(1, txt_name.getText());
+            pst.setString(2, String.valueOf(birth_date.getValue()));
+            pst.setString(3, txt_subject.getText());
+            pst.setString(4, phone_number.getText());
+            if (update) {
+                pst.setString(5, txt_id.getText());
+            }
             pst.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
