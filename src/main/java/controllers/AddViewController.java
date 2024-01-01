@@ -61,8 +61,15 @@ public class AddViewController {
             alert.setContentText("Please Fill All Data!");
             alert.showAndWait();
         } else {
+
             getQuery();
-           insert();
+
+            if (update){
+                insert();
+            }else {
+               insertNew();
+            }
+
 
 
         }
