@@ -54,6 +54,8 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<User, String> idColumn;
     @FXML
+    private TableColumn<User, Boolean> selectColumn = new TableColumn<>("Select");
+    @FXML
     private TextField phone_number;
     @FXML
     private TableColumn<User, String> subjectColumn;
@@ -61,8 +63,6 @@ public class Controller implements Initializable {
     private TableView<User> table_view = new TableView<>();
     @FXML
     private TableColumn<User, String> editColumn;
-    @FXML
-    private TableColumn<?, ?> selectColumn;
     @FXML
     private TextField txt_id = new TextField();
     @FXML
@@ -146,6 +146,16 @@ public class Controller implements Initializable {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         subjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        selectColumn.setCellValueFactory(new PropertyValueFactory<>("selected"));
+
+        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new CallBack<>(){
+            @Override
+            public TableCell<User, Boolean> call(TableColumn<User, Boolean> param){
+                return new TableCell<>(){
+                    final CheckBox checkBox = new CheckBox();
+                };
+            }
+        };
 
         Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = (TableColumn<User, String> param) -> {
 

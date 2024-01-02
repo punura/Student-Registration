@@ -125,12 +125,13 @@
       </AnchorPane>
       <TableView fx:id="table_view" layoutY="97.0" prefHeight="471.0" prefWidth="907.0">
         <columns>
-          <TableColumn fx:id="idColumn" prefWidth="115.0" text="Student ID" />
-          <TableColumn fx:id="nameColumn" prefWidth="155.0" text="Student Name" />
-            <TableColumn fx:id="dateColumn" prefWidth="144.0" text="Birth Date" />
-            <TableColumn fx:id="subjectColumn" prefWidth="118.0" text="Subjects" />
-            <TableColumn fx:id="phoneColumn" prefWidth="155.0" text="Phone Number" />
-            <TableColumn fx:id="editColumn" prefWidth="219.0" text="Edit" />
+          <TableColumn fx:id="idColumn" prefWidth="101.0" text="Student ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="153.0" text="Student Name" />
+            <TableColumn fx:id="dateColumn" prefWidth="142.0" text="Birth Date" />
+            <TableColumn fx:id="subjectColumn" prefWidth="112.0" text="Subjects" />
+            <TableColumn fx:id="phoneColumn" prefWidth="139.0" text="Phone Number" />
+            <TableColumn fx:id="editColumn" prefWidth="189.0" text="Edit" />
+            <TableColumn fx:id="selectColumn" prefWidth="70.0" text="Select" />
         </columns>
       </TableView>
    </children>

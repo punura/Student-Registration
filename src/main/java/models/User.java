@@ -1,5 +1,7 @@
 package models;
 
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.Date;
 
 public class User {
@@ -10,14 +12,17 @@ public class User {
     String subject;
     int phoneNumber;
 
-    public User(int studentID,String studentName, Date birthDate, String subject, int phoneNumber) {
+    private final SimpleBooleanProperty selected = new SimpleBooleanProperty(false);
+
+    public User(int studentID, String studentName, Date birthDate, String subject, int phoneNumber) {
         this.studentID = studentID;
         this.birthDate = birthDate;
         this.studentName = studentName;
         this.subject = subject;
         this.phoneNumber = phoneNumber;
     }
-    public User(){
+
+    public User() {
 
     }
 
@@ -59,5 +64,13 @@ public class User {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isSelected() {
+        return selected.get();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected.set(selected);
     }
 }
