@@ -153,6 +153,11 @@ public class Controller implements Initializable {
             public TableCell<User, Boolean> call(TableColumn<User, Boolean> param){
                 return new TableCell<>(){
                     final CheckBox checkBox = new CheckBox();
+
+                    checkBox.setOnAction(event -> {
+
+                    });
+
                 };
             }
         };
