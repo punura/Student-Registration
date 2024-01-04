@@ -148,19 +148,35 @@ public class Controller implements Initializable {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         selectColumn.setCellValueFactory(new PropertyValueFactory<>("selected"));
 
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new CallBack<>(){
+        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new Callback<>(){
             @Override
             public TableCell<User, Boolean> call(TableColumn<User, Boolean> param){
                 return new TableCell<>(){
-                    final CheckBox checkBox = new CheckBox();
-
+                    CheckBox checkBox = new CheckBox();
+                    {
                     checkBox.setOnAction(event -> {
-
+                        user = getTableView().getItems().get(getIndex());
+                        user.setSelected(checkBox.isSelected());
                     });
+                    }
+                    @Override
+                    public void updateItem(Boolean item, boolean empty){
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            user = getTableView().getItems().get(getIndex());
+                            checkBox.setSelected(user.isSelected());
+                            setGraphic(checkBox);
+                        }
+
+                    }
 
                 };
             }
+
         };
+        selectColumn.setCellValueFactory(checkboxCellFactory);
 
         Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = (TableColumn<User, String> param) -> {
 
