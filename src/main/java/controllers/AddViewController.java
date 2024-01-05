@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.User;
 import utility.DatabaseUtility;
 
 import javax.swing.*;
@@ -55,6 +56,7 @@ public class AddViewController {
         String phoneNumber = this.phone_number.getText();
 
 
+
         if (studentId.isEmpty() || studentName.isEmpty() || birthDate.isEmpty() || subjects.isEmpty() || phoneNumber.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -77,6 +79,7 @@ public class AddViewController {
         stage.close();
 
     }
+
 
     @FXML
     void cancel(ActionEvent event) {

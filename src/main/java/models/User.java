@@ -1,5 +1,6 @@
 package models;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.util.Date;
@@ -72,5 +73,9 @@ public class User {
 
     public void setSelected(boolean selected) {
         this.selected.set(selected);
+    }
+
+    public BooleanProperty selectedProperty(){
+        return selected;
     }
 }

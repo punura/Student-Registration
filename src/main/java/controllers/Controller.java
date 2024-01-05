@@ -54,7 +54,7 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<User, String> idColumn;
     @FXML
-    private TableColumn<User, Boolean> selectColumn = new TableColumn<>("Select");
+    private TableColumn<User, Boolean> selectColumn;
     @FXML
     private TextField phone_number;
     @FXML
@@ -148,19 +148,21 @@ public class Controller implements Initializable {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         selectColumn.setCellValueFactory(new PropertyValueFactory<>("selected"));
 
-        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new Callback<>(){
+        Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new Callback<>() {
             @Override
-            public TableCell<User, Boolean> call(TableColumn<User, Boolean> param){
-                return new TableCell<>(){
-                    CheckBox checkBox = new CheckBox();
+            public TableCell<User, Boolean> call(TableColumn<User, Boolean> param) {
+                return new TableCell<>() {
+                    final CheckBox checkBox = new CheckBox();
+
                     {
-                    checkBox.setOnAction(event -> {
-                        user = getTableView().getItems().get(getIndex());
-                        user.setSelected(checkBox.isSelected());
-                    });
+                        checkBox.setOnAction(event -> {
+                            user = getTableView().getItems().get(getIndex());
+                            user.setSelected(checkBox.isSelected());
+                        });
                     }
+
                     @Override
-                    public void updateItem(Boolean item, boolean empty){
+                    public void updateItem(Boolean item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
@@ -168,15 +170,19 @@ public class Controller implements Initializable {
                             user = getTableView().getItems().get(getIndex());
                             checkBox.setSelected(user.isSelected());
                             setGraphic(checkBox);
+
                         }
-
                     }
-
                 };
             }
-
         };
-        selectColumn.setCellValueFactory(checkboxCellFactory);
+        selectColumn.setCellFactory(checkboxCellFactory);
+
+
+
+
+
+
 
         Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = (TableColumn<User, String> param) -> {
 
@@ -276,4 +282,6 @@ public class Controller implements Initializable {
         editColumn.setCellFactory(cellFactory);
         table_view.setItems(UserList);
     }
+
+
 }
