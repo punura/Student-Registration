@@ -178,7 +178,15 @@ public class Controller implements Initializable {
         };
         selectColumn.setCellFactory(checkboxCellFactory);
 
+        CheckBox headerCheckBox = new CheckBox();
+        headerCheckBox.setOnAction(event -> {
+            boolean selected = headerCheckBox.isSelected();
+            UserList.forEach(user1 -> user.setSelected(selected));
+            table_view.refresh();
+        });
 
+
+        selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
 
 
 
