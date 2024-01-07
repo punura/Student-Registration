@@ -135,6 +135,35 @@ public class Controller implements Initializable {
 
     }
 
+    @FXML
+    void deleteMultiple(ActionEvent event){
+        try {
+            ObservableList<User> selectedUsers = table_view.getSelectionModel().getSelectedItems();
+
+            if(selectedUsers.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("No Rows Selected!");
+                alert.showAndWait();
+            }
+
+            StringBuilder idsToDelete = new StringBuilder();
+            for(User selectedUser : selectedUsers){
+                idsToDelete.append(selectedUser.getStudentID()).append(", ");
+            }
+            idsToDelete.delete(idsToDelete.length() - 2, idsToDelete.length());
+
+            query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
+            connectDB = connectNow.getConnection();
+            pst = connectDB.prepareStatement(query);
+            pst.execute();
+            refresh();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void table_view() {
 
@@ -148,6 +177,7 @@ public class Controller implements Initializable {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         selectColumn.setCellValueFactory(new PropertyValueFactory<>("selected"));
 
+        table_view.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> checkboxCellFactory = new Callback<>() {
             @Override
             public TableCell<User, Boolean> call(TableColumn<User, Boolean> param) {
@@ -158,6 +188,12 @@ public class Controller implements Initializable {
                         checkBox.setOnAction(event -> {
                             user = getTableView().getItems().get(getIndex());
                             user.setSelected(checkBox.isSelected());
+
+                            if(checkBox.isSelected()){
+                                table_view.getSelectionModel().select(getIndex());
+                            } else {
+                                table_view.getSelectionModel().clearSelection(getIndex());
+                            }
                         });
                     }
 
@@ -177,20 +213,6 @@ public class Controller implements Initializable {
             }
         };
         selectColumn.setCellFactory(checkboxCellFactory);
-
-        CheckBox headerCheckBox = new CheckBox();
-        headerCheckBox.setOnAction(event -> {
-            boolean selected = headerCheckBox.isSelected();
-            UserList.forEach(user1 -> user.setSelected(selected));
-            table_view.refresh();
-        });
-
-
-        selectColumn.setCellValueFactory(cellData -> cellData.getValue().selectedProperty());
-
-
-
-
 
         Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = (TableColumn<User, String> param) -> {
 
