@@ -136,26 +136,28 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void deleteMultiple(ActionEvent event){
+    void deleteMultiple(ActionEvent event) {
         try {
             ObservableList<User> selectedUsers = table_view.getSelectionModel().getSelectedItems();
 
-            if(selectedUsers.isEmpty()){
+            if (selectedUsers.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("No Rows Selected!");
                 alert.showAndWait();
             }
 
-            StringBuilder idsToDelete = new StringBuilder();
-            for(User selectedUser : selectedUsers){
-                idsToDelete.append(selectedUser.getStudentID()).append(", ");
-            }
-            idsToDelete.delete(idsToDelete.length() - 2, idsToDelete.length());
+            StringBuilder deleteQuery = new StringBuilder("DELETE FROM student_details WHERE student_id IN (");
 
-            query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
+            for (User selectedUser : selectedUsers){
+                deleteQuery.append(selectedUser.getStudentID()).append(", ");
+            }
+
+            deleteQuery.setLength(deleteQuery.length() - 2);
+            deleteQuery.append(")");
+
             connectDB = connectNow.getConnection();
-            pst = connectDB.prepareStatement(query);
+            pst = connectDB.prepareStatement(deleteQuery.toString());
             pst.execute();
             refresh();
 
@@ -189,7 +191,7 @@ public class Controller implements Initializable {
                             user = getTableView().getItems().get(getIndex());
                             user.setSelected(checkBox.isSelected());
 
-                            if(checkBox.isSelected()){
+                            if (checkBox.isSelected()) {
                                 table_view.getSelectionModel().select(getIndex());
                             } else {
                                 table_view.getSelectionModel().clearSelection(getIndex());
@@ -296,8 +298,8 @@ public class Controller implements Initializable {
 
                         HBox managebtn = new HBox(editIcon, deleteIcon);
                         managebtn.setStyle("-fx-alignment:center");
-                        HBox.setMargin(deleteIcon, new Insets(2,2,0,3));
-                        HBox.setMargin(editIcon, new Insets(2,3,0,2));
+                        HBox.setMargin(deleteIcon, new Insets(2, 2, 0, 3));
+                        HBox.setMargin(editIcon, new Insets(2, 3, 0, 2));
 
                         setGraphic(managebtn);
 
