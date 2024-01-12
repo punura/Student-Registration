@@ -69,11 +69,15 @@ public class Controller implements Initializable {
     private Button updateBtn;
 
     public void initialize(URL url, ResourceBundle rb) {
-        this.table_view();
+        try {
+            this.table_view();
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Controller() {
-        this.connectDB = connectNow.getConnection();
+    public Controller() throws SQLException, ClassNotFoundException {
+        this.connectDB = connectNow.getMySqlConnection();
     }
 
 
@@ -120,12 +124,12 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void delete(ActionEvent event) {
+    void delete(ActionEvent event) throws ClassNotFoundException {
 
         try {
             user = table_view.getSelectionModel().getSelectedItem();
             query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
-            connectDB = connectNow.getConnection();
+            connectDB = DatabaseUtility.getMySqlConnection();
             pst = connectDB.prepareStatement(query);
             pst.execute();
             refresh();
@@ -136,7 +140,7 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    void deleteMultiple(ActionEvent event) {
+    void deleteMultiple(ActionEvent event) throws ClassNotFoundException {
         try {
             ObservableList<User> selectedUsers = table_view.getSelectionModel().getSelectedItems();
 
@@ -156,7 +160,7 @@ public class Controller implements Initializable {
             deleteQuery.setLength(deleteQuery.length() - 2);
             deleteQuery.append(")");
 
-            connectDB = connectNow.getConnection();
+            connectDB = DatabaseUtility.getMySqlConnection();
             pst = connectDB.prepareStatement(deleteQuery.toString());
             pst.execute();
             refresh();
@@ -167,9 +171,9 @@ public class Controller implements Initializable {
     }
 
 
-    public void table_view() {
+    public void table_view() throws SQLException, ClassNotFoundException {
 
-        connectDB = connectNow.getConnection();
+        connectDB = DatabaseUtility.getMySqlConnection();
         refresh();
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("studentID"));
@@ -263,12 +267,12 @@ public class Controller implements Initializable {
                             try {
                                 user = table_view.getSelectionModel().getSelectedItem();
                                 query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
-                                connectDB = connectNow.getConnection();
+                                connectDB = DatabaseUtility.getMySqlConnection();
                                 pst = connectDB.prepareStatement(query);
                                 pst.execute();
                                 refresh();
 
-                            } catch (SQLException ex) {
+                            } catch (SQLException | ClassNotFoundException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
@@ -286,7 +290,7 @@ public class Controller implements Initializable {
                             }
 
                             AddViewController addViewController = loader.getController();
-                            addViewController.setUpdate(true);
+                            //addViewController.setUpdate(true);
                             addViewController.setTextField(user.getStudentID(), user.getStudentName(), LocalDate.parse(user.getBirthDate().toString()), user.getSubject(), user.getPhoneNumber());
                             Parent parent = loader.getRoot();
                             Stage stage = new Stage();
