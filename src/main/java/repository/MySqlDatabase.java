@@ -1,9 +1,12 @@
 package repository;
 
+import controllers.Controller;
+import javafx.collections.ObservableList;
 import models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MySqlDatabase implements Database{
@@ -30,4 +33,36 @@ public class MySqlDatabase implements Database{
             statement.setString(5, String.valueOf(user.getPhoneNumber()));
         statement.execute();
     }
+
+    @Override
+    public void delete(User user) {
+        String query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteMultiple(ObservableList<User> selectedUsers) {
+        StringBuilder deleteQuery = new StringBuilder("DELETE FROM student_details WHERE student_id IN (");
+
+        for (User selectedUser : selectedUsers) {
+            deleteQuery.append(selectedUser.getStudentID()).append(", ");
+        }
+
+        deleteQuery.setLength(deleteQuery.length() - 2);
+        deleteQuery.append(")");
+
+        try {
+            PreparedStatement statement =  connection.prepareStatement(String.valueOf(deleteQuery));
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

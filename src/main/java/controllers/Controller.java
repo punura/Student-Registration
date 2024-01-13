@@ -29,6 +29,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import models.User;
+import repository.Database;
+import utility.DatabaseFactory;
 import utility.DatabaseUtility;
 
 public class Controller implements Initializable {
@@ -65,13 +67,14 @@ public class Controller implements Initializable {
     private TableColumn<User, String> editColumn;
     @FXML
     private TextField txt_id = new TextField();
-    @FXML
-    private Button updateBtn;
+
+    private Database database;
 
     public void initialize(URL url, ResourceBundle rb) {
         try {
             this.table_view();
-        } catch (SQLException | ClassNotFoundException e) {
+            database = DatabaseFactory.getDatabaseInctance("MYSQL");
+        } catch (SQLException | ClassNotFoundException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -126,48 +129,19 @@ public class Controller implements Initializable {
     @FXML
     void delete(ActionEvent event) throws ClassNotFoundException {
 
-        try {
-            user = table_view.getSelectionModel().getSelectedItem();
-            query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
-            connectDB = DatabaseUtility.getMySqlConnection();
-            pst = connectDB.prepareStatement(query);
-            pst.execute();
-            refresh();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        User user = table_view.getSelectionModel().getSelectedItem();
+        database.delete(user);
+        refresh();
 
     }
 
     @FXML
     void deleteMultiple(ActionEvent event) throws ClassNotFoundException {
-        try {
-            ObservableList<User> selectedUsers = table_view.getSelectionModel().getSelectedItems();
 
-            if (selectedUsers.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("No Rows Selected!");
-                alert.showAndWait();
-            }
+        ObservableList<User> selectedUsers = table_view.getSelectionModel().getSelectedItems();
+        database.deleteMultiple(selectedUsers);
+        refresh();
 
-            StringBuilder deleteQuery = new StringBuilder("DELETE FROM student_details WHERE student_id IN (");
-
-            for (User selectedUser : selectedUsers){
-                deleteQuery.append(selectedUser.getStudentID()).append(", ");
-            }
-
-            deleteQuery.setLength(deleteQuery.length() - 2);
-            deleteQuery.append(")");
-
-            connectDB = DatabaseUtility.getMySqlConnection();
-            pst = connectDB.prepareStatement(deleteQuery.toString());
-            pst.execute();
-            refresh();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
@@ -264,17 +238,9 @@ public class Controller implements Initializable {
 
                         deleteIcon.setOnMouseClicked((event) -> {
 
-                            try {
-                                user = table_view.getSelectionModel().getSelectedItem();
-                                query = "DELETE FROM student_details WHERE student_id =" + user.getStudentID();
-                                connectDB = DatabaseUtility.getMySqlConnection();
-                                pst = connectDB.prepareStatement(query);
-                                pst.execute();
-                                refresh();
-
-                            } catch (SQLException | ClassNotFoundException ex) {
-                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            user = table_view.getSelectionModel().getSelectedItem();
+                            database.delete(user);
+                            refresh();
 
                         });
 
