@@ -1,12 +1,10 @@
 package repository;
 
-import controllers.Controller;
 import javafx.collections.ObservableList;
 import models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MySqlDatabase implements Database{

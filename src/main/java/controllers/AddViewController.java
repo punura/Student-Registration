@@ -1,29 +1,20 @@
 package controllers;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.User;
 import repository.Database;
 import utility.DatabaseFactory;
-import utility.DatabaseUtility;
 
-import javax.swing.*;
-import java.awt.*;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class AddViewController implements Initializable {

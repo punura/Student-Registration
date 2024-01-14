@@ -5,11 +5,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,14 +30,10 @@ import utility.DatabaseFactory;
 import utility.DatabaseUtility;
 
 public class Controller implements Initializable {
-    PreparedStatement pst;
-    DatabaseUtility connectNow = new DatabaseUtility();
+
     Connection connectDB;
     ObservableList<User> UserList = FXCollections.observableArrayList();
     User user;
-    String query;
-
-    ResultSet resultSet;
 
     @FXML
     private Button addBtn;
@@ -80,7 +72,7 @@ public class Controller implements Initializable {
     }
 
     public Controller() throws SQLException, ClassNotFoundException {
-        this.connectDB = connectNow.getMySqlConnection();
+        this.connectDB = DatabaseUtility.getMySqlConnection();
     }
 
 
@@ -107,8 +99,9 @@ public class Controller implements Initializable {
         try {
             UserList.clear();
 
-            query = "SELECT * FROM student_details";
-            pst = connectDB.prepareStatement(query);
+            String query = "SELECT * FROM student_details";
+            PreparedStatement pst = connectDB.prepareStatement(query);
+            ResultSet resultSet;
             resultSet = pst.executeQuery();
 
             while (resultSet.next()) {
