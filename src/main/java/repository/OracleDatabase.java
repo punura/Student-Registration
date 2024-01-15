@@ -26,4 +26,9 @@ public class OracleDatabase implements Database{
 
     }
 
+    @Override
+    public void update(User user) {
+
+    }
+
 }

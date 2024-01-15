@@ -63,4 +63,9 @@ public class MySqlDatabase implements Database{
 
     }
 
+    @Override
+    public void update(User user) {
+
+    }
+
 }
