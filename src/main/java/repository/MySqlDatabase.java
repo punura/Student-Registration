@@ -66,6 +66,15 @@ public class MySqlDatabase implements Database{
     @Override
     public void update(User user) {
 
+
+
+        String query =  "UPDATE student_details SET " +
+                        "student_name=?, " +
+                        "birth_date=?, " +
+                        "subjects=?, " +
+                        "phone_number=? " +
+                        "WHERE student_id=?";
+
     }
 
 }
