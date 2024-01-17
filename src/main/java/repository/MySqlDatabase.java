@@ -64,9 +64,7 @@ public class MySqlDatabase implements Database{
     }
 
     @Override
-    public void update(User user) {
-
-
+    public void update(User user) throws SQLException {
 
         String query =  "UPDATE student_details SET " +
                         "student_name=?, " +
@@ -74,6 +72,16 @@ public class MySqlDatabase implements Database{
                         "subjects=?, " +
                         "phone_number=? " +
                         "WHERE student_id=?";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, String.valueOf(user.getStudentID()));
+        statement.setString(2, user.getStudentName());
+        statement.setString(3, user.getBirthDate().toString());
+        statement.setString(4, user.getSubject());
+        statement.setString(5, String.valueOf(user.getPhoneNumber()));
+
+        statement.executeUpdate();
+        statement.close();
 
     }
 

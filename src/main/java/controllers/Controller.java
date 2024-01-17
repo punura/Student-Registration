@@ -62,6 +62,9 @@ public class Controller implements Initializable {
 
     private Database database;
 
+    private User editUser;
+
+
     public void initialize(URL url, ResourceBundle rb) {
         try {
             this.table_view();
@@ -136,6 +139,7 @@ public class Controller implements Initializable {
         refresh();
 
     }
+
 
 
     public void table_view() throws SQLException, ClassNotFoundException {
@@ -249,7 +253,7 @@ public class Controller implements Initializable {
                             }
 
                             AddViewController addViewController = loader.getController();
-                            database.update(user);
+                            //database.update(user);
                             addViewController.setTextField(user.getStudentID(), user.getStudentName(), LocalDate.parse(user.getBirthDate().toString()), user.getSubject(), user.getPhoneNumber());
                             Parent parent = loader.getRoot();
                             Stage stage = new Stage();
