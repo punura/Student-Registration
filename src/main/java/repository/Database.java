@@ -3,7 +3,6 @@ package repository;
 import javafx.collections.ObservableList;
 import models.User;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface Database {
@@ -15,6 +14,6 @@ public interface Database {
 
     void deleteMultiple(ObservableList<User> selectedUsers);
 
-    void update(User user) throws SQLException;
+    void update(User user, boolean b) throws SQLException;
 
 }

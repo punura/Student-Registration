@@ -3,8 +3,6 @@ package repository;
 import javafx.collections.ObservableList;
 import models.User;
 
-import java.sql.ResultSet;
-
 public class OracleDatabase implements Database{
     @Override
     public User getUserbyId(String name) {
@@ -27,7 +25,7 @@ public class OracleDatabase implements Database{
     }
 
     @Override
-    public void update(User user) {
+    public void update(User user, boolean b) {
 
     }
 

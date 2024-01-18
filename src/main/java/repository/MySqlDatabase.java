@@ -64,25 +64,25 @@ public class MySqlDatabase implements Database{
     }
 
     @Override
-    public void update(User user) throws SQLException {
+    public void update(User user, boolean b) throws SQLException {
+        if (b) {
+            String query = "UPDATE student_details SET " +
+                    "student_name=?, " +
+                    "birth_date=?, " +
+                    "subjects=?, " +
+                    "phone_number=? " +
+                    "WHERE student_id=?";
 
-        String query =  "UPDATE student_details SET " +
-                        "student_name=?, " +
-                        "birth_date=?, " +
-                        "subjects=?, " +
-                        "phone_number=? " +
-                        "WHERE student_id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, String.valueOf(user.getStudentID()));
+            statement.setString(2, user.getStudentName());
+            statement.setString(3, user.getBirthDate().toString());
+            statement.setString(4, user.getSubject());
+            statement.setString(5, String.valueOf(user.getPhoneNumber()));
+            statement.execute();
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(user.getStudentID()));
-        statement.setString(2, user.getStudentName());
-        statement.setString(3, user.getBirthDate().toString());
-        statement.setString(4, user.getSubject());
-        statement.setString(5, String.valueOf(user.getPhoneNumber()));
 
-        statement.executeUpdate();
-        statement.close();
-
+        }
     }
 
 }
