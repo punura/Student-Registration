@@ -253,11 +253,7 @@ public class Controller implements Initializable {
                             }
 
                             AddViewController addViewController = loader.getController();
-                            try {
-                                database.update(user, true);
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
+                            database.setUpdate(true);
                             addViewController.setTextField(user.getStudentID(), user.getStudentName(), LocalDate.parse(user.getBirthDate().toString()), user.getSubject(), user.getPhoneNumber());
                             Parent parent = loader.getRoot();
                             Stage stage = new Stage();

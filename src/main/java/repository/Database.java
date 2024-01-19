@@ -14,6 +14,6 @@ public interface Database {
 
     void deleteMultiple(ObservableList<User> selectedUsers);
 
-    void update(User user, boolean b) throws SQLException;
+    void setUpdate(boolean b);
 
 }
