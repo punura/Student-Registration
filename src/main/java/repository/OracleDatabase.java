@@ -3,6 +3,8 @@ package repository;
 import javafx.collections.ObservableList;
 import models.User;
 
+import java.sql.SQLException;
+
 public class OracleDatabase implements Database{
     @Override
     public User getUserbyId(String name) {
@@ -11,6 +13,11 @@ public class OracleDatabase implements Database{
 
     @Override
     public void insert(User user) {
+
+    }
+
+    @Override
+    public void insertNew(User user) throws SQLException {
 
     }
 
@@ -26,6 +33,11 @@ public class OracleDatabase implements Database{
 
     @Override
     public void setUpdate(boolean b) {
+
+    }
+
+    @Override
+    public void getQuery() {
 
     }
 

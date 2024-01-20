@@ -59,7 +59,8 @@ public class AddViewController implements Initializable {
             user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
 
         try {
-            database.insert(user);
+            database.getQuery();
+            database.insertNew(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -217,7 +217,7 @@ public class Controller implements Initializable {
 
 
                         deleteIcon.setStyle(
-                                "-fx-cursor: hand;"
+                                        "-fx-cursor: hand;"
                                         + "-fx-font-family: 'FontAwesome';"
                                         + "-fx-font-size: 28px;"
                                         + "-fx-background-color: 'transparent';"
@@ -226,7 +226,7 @@ public class Controller implements Initializable {
                         );
 
                         editIcon.setStyle(
-                                "-fx-cursor: hand;"
+                                        "-fx-cursor: hand;"
                                         + "-fx-font-family: 'FontAwesome';"
                                         + "-fx-font-size: 28px;"
                                         + "-fx-background-color: 'transparent';"

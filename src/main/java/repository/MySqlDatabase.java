@@ -23,21 +23,7 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public void insert(User user) throws SQLException {
-        if (update == false) {
-
-            query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
-
-        } else {
-
-            query = "UPDATE student_details SET " +
-                    "student_name=?, " +
-                    "birth_date=?, " +
-                    "subjects=?, " +
-                    "phone_number=? " +
-                    "WHERE student_id=?";
-        }
-
+    public void insertNew(User user) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, String.valueOf(user.getStudentID()));
         statement.setString(2, user.getStudentName());
@@ -81,6 +67,36 @@ public class MySqlDatabase implements Database {
     @Override
     public void setUpdate(boolean b) {
         this.update = b;
+    }
+
+    @Override
+    public void getQuery() {
+        if (update == false) {
+
+            query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
+
+        } else {
+
+            query = "UPDATE student_details SET " +
+                    "student_name=?, " +
+                    "birth_date=?, " +
+                    "subjects=?, " +
+                    "phone_number=? " +
+                    "WHERE student_id=?";
+        }
+    }
+
+    @Override
+    public void insert(User user) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, user.getStudentName());
+        statement.setString(2, user.getBirthDate().toString());
+        statement.setString(3, user.getSubject());
+        statement.setString(4, String.valueOf(user.getPhoneNumber()));
+        if (update) {
+            statement.setString(5, String.valueOf(user.getStudentID()));
+        }
+        statement.execute();
     }
 
 }
