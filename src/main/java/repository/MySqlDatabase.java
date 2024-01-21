@@ -23,7 +23,7 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public void insertNew(User user) throws SQLException {
+    public void insert(User user) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, String.valueOf(user.getStudentID()));
         statement.setString(2, user.getStudentName());
@@ -87,7 +87,7 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public void insert(User user) throws SQLException {
+    public void update(User user) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, user.getStudentName());
         statement.setString(2, user.getBirthDate().toString());

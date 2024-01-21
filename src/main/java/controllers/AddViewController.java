@@ -60,7 +60,7 @@ public class AddViewController implements Initializable {
 
         try {
             database.getQuery();
-            database.insertNew(user);
+            database.insert(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

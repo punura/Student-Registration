@@ -12,12 +12,12 @@ public class OracleDatabase implements Database{
     }
 
     @Override
-    public void insert(User user) {
+    public void update(User user) {
 
     }
 
     @Override
-    public void insertNew(User user) throws SQLException {
+    public void insert(User user) throws SQLException {
 
     }
 

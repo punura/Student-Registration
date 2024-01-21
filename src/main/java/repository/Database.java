@@ -8,9 +8,9 @@ import java.sql.SQLException;
 public interface Database {
 
     User getUserbyId(String name);
-    void insert(User user) throws SQLException;
+    void update(User user) throws SQLException;
 
-    void insertNew(User user) throws SQLException;
+    void insert(User user) throws SQLException;
 
     void delete(User user);
 
