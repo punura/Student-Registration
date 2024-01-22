@@ -1,11 +1,14 @@
 package repository;
 
+import controllers.AddViewController;
 import javafx.collections.ObservableList;
 import models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySqlDatabase implements Database {
 
@@ -24,13 +27,20 @@ public class MySqlDatabase implements Database {
 
     @Override
     public void insert(User user) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, String.valueOf(user.getStudentID()));
-        statement.setString(2, user.getStudentName());
-        statement.setString(3, user.getBirthDate().toString());
-        statement.setString(4, user.getSubject());
-        statement.setString(5, String.valueOf(user.getPhoneNumber()));
-        statement.execute();
+
+        try {
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, String.valueOf(user.getStudentID()));
+            statement.setString(2, user.getStudentName());
+            statement.setString(3, user.getBirthDate().toString());
+            statement.setString(4, user.getSubject());
+            statement.setString(5, String.valueOf(user.getPhoneNumber()));
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(AddViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
@@ -71,7 +81,7 @@ public class MySqlDatabase implements Database {
 
     @Override
     public void getQuery() {
-        if (update == false) {
+        if (!update) {
 
             query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
 
