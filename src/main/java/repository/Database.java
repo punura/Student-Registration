@@ -16,7 +16,7 @@ public interface Database {
 
     void deleteMultiple(ObservableList<User> selectedUsers);
 
-    void setUpdate(boolean b);
+    boolean setUpdate(boolean b);
 
     void getQuery();
 

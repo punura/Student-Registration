@@ -32,8 +32,9 @@ public class OracleDatabase implements Database{
     }
 
     @Override
-    public void setUpdate(boolean b) {
+    public boolean setUpdate(boolean b) {
 
+        return b;
     }
 
     @Override

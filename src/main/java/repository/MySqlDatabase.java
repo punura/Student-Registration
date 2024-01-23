@@ -40,7 +40,7 @@ public class MySqlDatabase implements Database {
         } catch (SQLException ex) {
             Logger.getLogger(AddViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 
     @Override
@@ -75,11 +75,6 @@ public class MySqlDatabase implements Database {
     }
 
     @Override
-    public void setUpdate(boolean b) {
-        this.update = b;
-    }
-
-    @Override
     public void getQuery() {
         if (!update) {
 
@@ -107,6 +102,12 @@ public class MySqlDatabase implements Database {
             statement.setString(5, String.valueOf(user.getStudentID()));
         }
         statement.execute();
+    }
+
+    @Override
+    public boolean setUpdate(boolean b) {
+        this.update = b;
+        return b;
     }
 
 }
