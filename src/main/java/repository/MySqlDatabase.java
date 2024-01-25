@@ -14,7 +14,6 @@ public class MySqlDatabase implements Database {
 
     private final Connection connection;
     private boolean update;
-    String query;
 
     public MySqlDatabase(Connection connection) {
         this.connection = connection;
@@ -29,7 +28,7 @@ public class MySqlDatabase implements Database {
     public void insert(User user) throws SQLException {
 
         try {
-
+            String query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, String.valueOf(user.getStudentID()));
             statement.setString(2, user.getStudentName());
@@ -40,8 +39,9 @@ public class MySqlDatabase implements Database {
         } catch (SQLException ex) {
             Logger.getLogger(AddViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
+
 
     @Override
     public void delete(User user) {
@@ -74,25 +74,15 @@ public class MySqlDatabase implements Database {
 
     }
 
-    @Override
-    public void getQuery() {
-        if (!update) {
-
-            query = "INSERT INTO student_details (student_id, student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?, ?)";
-
-        } else {
-
-            query = "UPDATE student_details SET " +
-                    "student_name=?, " +
-                    "birth_date=?, " +
-                    "subjects=?, " +
-                    "phone_number=? " +
-                    "WHERE student_id=?";
-        }
-    }
 
     @Override
     public void update(User user) throws SQLException {
+        String query = "UPDATE student_details SET " +
+                "student_name=?, " +
+                "birth_date=?, " +
+                "subjects=?, " +
+                "phone_number=? " +
+                "WHERE student_id=?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, user.getStudentName());
         statement.setString(2, user.getBirthDate().toString());
@@ -109,5 +99,6 @@ public class MySqlDatabase implements Database {
         this.update = b;
         return b;
     }
+
 
 }

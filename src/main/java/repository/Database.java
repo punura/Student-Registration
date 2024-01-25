@@ -18,7 +18,9 @@ public interface Database {
 
     boolean setUpdate(boolean b);
 
-    void getQuery();
+
+
+
 
 
 

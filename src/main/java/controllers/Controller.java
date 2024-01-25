@@ -258,6 +258,7 @@ public class Controller implements Initializable {
                             Parent parent = loader.getRoot();
                             Stage stage = new Stage();
                             stage.setScene(new Scene(parent));
+                            stage.setTitle("Update Student Details");
                             stage.initStyle(StageStyle.UTILITY);
                             stage.show();
 

@@ -49,25 +49,24 @@ public class AddViewController implements Initializable {
 
 
     @FXML
-    void add(ActionEvent event) throws ParseException {
+    void add(ActionEvent event) throws SQLException {
+
+
 
         User user = new User();
-            user.setStudentID(Integer.parseInt(txt_id.getText()));
-            user.setStudentName(txt_name.getText());
-            user.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
-            user.setSubject(txt_subject.getText());
-            user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
+             user.setStudentID(Integer.parseInt(txt_id.getText()));
+             user.setStudentName(txt_name.getText());
+             user.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
+             user.setSubject(txt_subject.getText());
+             user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
 
-        try {
-            database.getQuery();
-            if(database.setUpdate(true)){
-                database.update(user);
-            }else {
-                database.insert(user);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(database.setUpdate(true)){
+            database.update(user);
+        }else {
+            database.insert(user);
         }
+
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
 

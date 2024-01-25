@@ -37,9 +37,5 @@ public class OracleDatabase implements Database{
         return b;
     }
 
-    @Override
-    public void getQuery() {
-
-    }
 
 }
