@@ -52,7 +52,6 @@ public class AddViewController implements Initializable {
     void add(ActionEvent event) throws SQLException {
 
 
-
         User user = new User();
              user.setStudentID(Integer.parseInt(txt_id.getText()));
              user.setStudentName(txt_name.getText());
@@ -60,11 +59,12 @@ public class AddViewController implements Initializable {
              user.setSubject(txt_subject.getText());
              user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
 
+
         if(database.setUpdate(true)){
             database.update(user);
-        }else {
-            database.insert(user);
         }
+
+        database.insert(user);
 
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

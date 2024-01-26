@@ -4,6 +4,7 @@ import controllers.AddViewController;
 import javafx.collections.ObservableList;
 import models.User;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
