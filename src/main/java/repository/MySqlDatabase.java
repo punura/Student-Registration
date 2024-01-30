@@ -4,7 +4,6 @@ import controllers.AddViewController;
 import javafx.collections.ObservableList;
 import models.User;
 
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,11 +17,6 @@ public class MySqlDatabase implements Database {
 
     public MySqlDatabase(Connection connection) {
         this.connection = connection;
-    }
-
-    @Override
-    public User getUserbyId(String name) {
-        return null;
     }
 
     @Override

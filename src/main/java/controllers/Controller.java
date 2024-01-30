@@ -31,7 +31,7 @@ import utility.DatabaseUtility;
 
 public class Controller implements Initializable {
 
-    Connection connectDB;
+    private Connection connectDB;
     ObservableList<User> UserList = FXCollections.observableArrayList();
     User user;
 
@@ -39,8 +39,6 @@ public class Controller implements Initializable {
     private Button addBtn;
     @FXML
     private TableColumn<User, String> dateColumn;
-    @FXML
-    private Button deleteBtn;
     @FXML
     private TableColumn<User, String> nameColumn;
     @FXML
@@ -62,7 +60,7 @@ public class Controller implements Initializable {
 
     private Database database;
 
-    private User editUser;
+
 
 
     public void initialize(URL url, ResourceBundle rb) {
