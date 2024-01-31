@@ -27,12 +27,15 @@ public class MySqlDatabase implements Database {
 
             String query = "INSERT INTO student_details (student_name, birth_date, subjects, phone_number) VALUES(?, ?, ?, ?)";
 
+
+
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getStudentName());
             statement.setString(2, user.getBirthDate().toString());
             statement.setString(3, user.getSubject());
             statement.setString(4, String.valueOf(user.getPhoneNumber()));
             statement.execute();
+            connection.setAutoCommit(true);
         } catch (SQLException ex) {
             Logger.getLogger(AddViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,12 +77,14 @@ public class MySqlDatabase implements Database {
 
     @Override
     public void update(User user) throws SQLException {
-        String query = "UPDATE student_details SET " +
-                "student_name=?, " +
-                "birth_date=?, " +
-                "subjects=?, " +
-                "phone_number=? " +
-                "WHERE student_id= '"+user.getStudentID()+"'";
+
+        String query =  "UPDATE student_details SET " +
+                        "student_name=?, " +
+                        "birth_date=?, " +
+                        "subjects=?, " +
+                        "phone_number=? " +
+                        "WHERE student_id= '"+user.getStudentID()+"'";
+
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, user.getStudentName());
         statement.setString(2, user.getBirthDate().toString());
@@ -88,11 +93,6 @@ public class MySqlDatabase implements Database {
         statement.execute();
     }
 
-    @Override
-    public boolean setUpdate(boolean updateMode) {
-        this.updateMode = updateMode;
-        return updateMode;
-    }
 
 
 }

@@ -47,23 +47,23 @@ public class AddViewController implements Initializable {
     }
 
 
-
     @FXML
     void add(ActionEvent event) throws SQLException {
 
 
         User user = new User();
-             user.setStudentName(txt_name.getText());
-             user.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
-             user.setSubject(txt_subject.getText());
-             user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
+        user.setStudentID(studentID);
+        user.setStudentName(txt_name.getText());
+        user.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
+        user.setSubject(txt_subject.getText());
+        user.setPhoneNumber(Integer.parseInt(phone_number.getText()));
 
-
-        if(database.setUpdate(true)){
+        if (user.getStudentID() > 0) {
             database.update(user);
-        }else {
+        } else {
             database.insert(user);
         }
+
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
@@ -80,9 +80,6 @@ public class AddViewController implements Initializable {
         phone_number.setText(null);
 
     }
-
-
-
 
 
     void setTextField(int id, String name, LocalDate tolocalDate, String subject, int number) {

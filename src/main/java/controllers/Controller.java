@@ -258,7 +258,7 @@ public class Controller implements Initializable {
                             stage.setTitle("Update Student Details");
                             stage.initStyle(StageStyle.UTILITY);
                             stage.show();
-                            database.setUpdate(true);
+
                         });
 
 
