@@ -251,7 +251,6 @@ public class Controller implements Initializable {
                             }
 
                             AddViewController addViewController = loader.getController();
-                            database.setUpdate(true);
                             addViewController.setTextField(user.getStudentID(), user.getStudentName(), LocalDate.parse(user.getBirthDate().toString()), user.getSubject(), user.getPhoneNumber());
                             Parent parent = loader.getRoot();
                             Stage stage = new Stage();
@@ -259,7 +258,7 @@ public class Controller implements Initializable {
                             stage.setTitle("Update Student Details");
                             stage.initStyle(StageStyle.UTILITY);
                             stage.show();
-
+                            database.setUpdate(true);
                         });
 
 

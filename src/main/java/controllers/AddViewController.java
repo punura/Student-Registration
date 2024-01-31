@@ -35,6 +35,7 @@ public class AddViewController implements Initializable {
     private controllers.Controller Controller;
 
     private Database database;
+    int studentID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,7 +53,6 @@ public class AddViewController implements Initializable {
 
 
         User user = new User();
-             user.setStudentID(Integer.parseInt(txt_id.getText()));
              user.setStudentName(txt_name.getText());
              user.setBirthDate(java.sql.Date.valueOf(birth_date.getValue()));
              user.setSubject(txt_subject.getText());
@@ -61,10 +61,9 @@ public class AddViewController implements Initializable {
 
         if(database.setUpdate(true)){
             database.update(user);
+        }else {
+            database.insert(user);
         }
-
-        database.insert(user);
-
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
@@ -75,7 +74,6 @@ public class AddViewController implements Initializable {
     @FXML
     void cancel(ActionEvent event) {
 
-        txt_id.setText(null);
         txt_name.setText(null);
         birth_date.setValue(null);
         txt_subject.setText(null);
@@ -89,7 +87,7 @@ public class AddViewController implements Initializable {
 
     void setTextField(int id, String name, LocalDate tolocalDate, String subject, int number) {
 
-        txt_id.setText(String.valueOf(id));
+        studentID = id;
         txt_name.setText(name);
         birth_date.setValue(tolocalDate);
         txt_subject.setText(subject);
